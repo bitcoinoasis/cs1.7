@@ -43,8 +43,8 @@ public class SceneInitializer : MonoBehaviour
         // Configure default settings
         gameModeManager.currentGameMode = GameModeManager.GameMode.TeamDeathmatch;
         gameModeManager.killsToWin = 30;
-        gameModeManager.roundTimeLimit = 120f;
-        gameModeManager.buyTimeSeconds = 15;
+        gameModeManager.roundTime = 120f;
+        gameModeManager.buyTime = 15;
 
         // EconomySystem
         GameObject economyObj = new GameObject("EconomySystem");
@@ -53,7 +53,6 @@ public class SceneInitializer : MonoBehaviour
         
         // Configure economy settings
         economySystem.startingMoney = 800;
-        economySystem.maxMoney = 16000;
         economySystem.standardKillReward = 300;
 
         // BotSpawner
@@ -282,7 +281,7 @@ public class SceneInitializer : MonoBehaviour
         Debug.Log("[SceneInitializer] Created 10 spawn points (5 per team)");
 
         // Now that spawn points exist, configure BotSpawner
-        BotSpawner botSpawner = GameObject.FindObjectOfType<BotSpawner>();
+        BotSpawner botSpawner = GameObject.FindFirstObjectByType<BotSpawner>();
         if (botSpawner != null)
         {
             // Get spawn point arrays
