@@ -87,12 +87,30 @@ public class SceneInitializer : MonoBehaviour
 
         // Create UI components
         CreateCrosshair(canvasObj.transform);
-        CreateAbilityHUD(canvasObj.transform);
-        CreateBuyMenu(canvasObj.transform);
-        CreateScoreboard(canvasObj.transform);
-        CreateKillFeed(canvasObj.transform);
+        CreateHealthDisplay(canvasObj.transform);
+        // Note: AbilityHUD, BuyMenu, Scoreboard, KillFeed require complex UI hierarchies
+        // These need to be manually set up in the Unity Editor with proper child elements
+        // CreateAbilityHUD(canvasObj.transform);
+        // CreateBuyMenu(canvasObj.transform);
+        // CreateScoreboard(canvasObj.transform);
+        // CreateKillFeed(canvasObj.transform);
 
-        Debug.Log("[SceneInitializer] UI Canvas created with all UI components");
+        Debug.Log("[SceneInitializer] UI Canvas created with crosshair and health display");
+    }
+
+    static void CreateHealthDisplay(Transform parent)
+    {
+        GameObject healthObj = new GameObject("HealthDisplay");
+        healthObj.transform.SetParent(parent);
+        
+        RectTransform rect = healthObj.AddComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0, 0);
+        rect.anchorMax = new Vector2(0, 0);
+        rect.pivot = new Vector2(0, 0);
+        rect.anchoredPosition = new Vector2(20, 20);
+        rect.sizeDelta = new Vector2(200, 50);
+
+        healthObj.AddComponent<SimpleHealthDisplay>();
     }
 
     static void CreateCrosshair(Transform parent)
