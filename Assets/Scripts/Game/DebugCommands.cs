@@ -211,7 +211,7 @@ public class DebugCommands : MonoBehaviour
         BotSpawner spawner = FindFirstObjectByType<BotSpawner>();
         if (spawner != null)
         {
-            spawner.DespawnAllBots();
+            spawner.ClearAllBots();
             Debug.Log("Bots cleared!");
         }
         else
