@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: Dwarf_ShieldBash
+  m_EditorClassIdentifier: 
+  abilityName: Shield Bash
+  abilityType: 1
+  abilityIcon: {fileID: 0}
+  abilityDescription: Active melee attack that stuns and deals damage
+  valuesPerLevel:
+  - 30
+  - 40
+  - 50
+  - 60
+  - 70
+  secondaryValuesPerLevel:
+  - 0.8
+  - 1
+  - 1.2
+  - 1.4
+  - 1.6
+  cooldownsPerLevel:
+  - 10
+  - 9.5
+  - 9
+  - 8.5
+  - 8
+  manaCostPerLevel:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  visualEffectPrefab: {fileID: 0}
+  soundEffect: {fileID: 0}
+  balanceNotes: Active CC. 30-70 damage, 0.8-1.6s stun, 10-8s cooldown. Short range, high reward. Clutch tool.

@@ -1,0 +1,212 @@
+using UnityEngine;
+using System.Collections.Generic;
+
+public class PlayerAbilities : MonoBehaviour
+{
+    [Header("Abilities")]
+    public List<AbilityInstance> abilities = new List<AbilityInstance>();
+    
+    private PlayerHealth playerHealth;
+    private PlayerController playerController;
+    private PlayerExperience playerExperience;
+    private Camera playerCamera;
+    
+    private void Start()
+    {
+        playerHealth = GetComponent<PlayerHealth>();
+        playerController = GetComponent<PlayerController>();
+        playerExperience = GetComponent<PlayerExperience>();
+        playerCamera = GetComponentInChildren<Camera>();
+    }
+    
+    private void Update()
+    {
+        // Update cooldowns
+        foreach (var ability in abilities)
+        {
+            if (ability.currentCooldown > 0)
+            {
+                ability.currentCooldown -= Time.deltaTime;
+            }
+            
+            // Check for ability activation
+            if (Input.GetKeyDown(ability.data.hotkey) && ability.CanUse())
+            {
+                UseAbility(ability);
+            }
+        }
+    }
+    
+    public void AddAbility(AbilityData abilityData)
+    {
+        AbilityInstance newAbility = new AbilityInstance(abilityData);
+        abilities.Add(newAbility);
+    }
+    
+    public void UpgradeAbility(AbilityData abilityData)
+    {
+        AbilityInstance ability = abilities.Find(a => a.data == abilityData);
+        if (ability != null && playerExperience.CanAffordSkillPoint())
+        {
+            if (ability.level < ability.data.maxLevel)
+            {
+                ability.level++;
+                playerExperience.SpendSkillPoint();
+                Debug.Log($"Upgraded {ability.data.abilityName} to level {ability.level}");
+            }
+        }
+    }
+    
+    private void UseAbility(AbilityInstance ability)
+    {
+        if (!ability.CanUse()) return;
+        
+        ability.currentCooldown = ability.GetCooldown();
+        
+        switch (ability.data.abilityType)
+        {
+            case AbilityType.Teleport:
+                PerformTeleport(ability);
+                break;
+            case AbilityType.Invisibility:
+                PerformInvisibility(ability);
+                break;
+            case AbilityType.SpeedBoost:
+                PerformSpeedBoost(ability);
+                break;
+            case AbilityType.Heal:
+                PerformHeal(ability);
+                break;
+            case AbilityType.Shield:
+                PerformShield(ability);
+                break;
+            case AbilityType.Vampire:
+                PerformVampire(ability);
+                break;
+        }
+        
+        // Play sound effect
+        if (ability.data.soundEffect != null)
+        {
+            AudioSource.PlayClipAtPoint(ability.data.soundEffect, transform.position);
+        }
+    }
+    
+    private void PerformTeleport(AbilityInstance ability)
+    {
+        // Teleport forward in the direction player is looking
+        Vector3 teleportDirection = playerCamera.transform.forward;
+        teleportDirection.y = 0; // Keep on horizontal plane
+        teleportDirection.Normalize();
+        
+        Vector3 targetPosition = transform.position + teleportDirection * ability.data.range;
+        
+        // Check if target position is valid (not inside wall)
+        if (!Physics.Linecast(transform.position, targetPosition))
+        {
+            transform.position = targetPosition;
+            Debug.Log("Teleported!");
+        }
+    }
+    
+    private void PerformInvisibility(AbilityInstance ability)
+    {
+        // Make player invisible
+        StartCoroutine(InvisibilityCoroutine(ability));
+    }
+    
+    private System.Collections.IEnumerator InvisibilityCoroutine(AbilityInstance ability)
+    {
+        // Reduce opacity of player model
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (var renderer in renderers)
+        {
+            Color color = renderer.material.color;
+            color.a = 0.2f;
+            renderer.material.color = color;
+        }
+        
+        yield return new WaitForSeconds(ability.data.duration);
+        
+        // Restore opacity
+        foreach (var renderer in renderers)
+        {
+            Color color = renderer.material.color;
+            color.a = 1f;
+            renderer.material.color = color;
+        }
+    }
+    
+    private void PerformSpeedBoost(AbilityInstance ability)
+    {
+        StartCoroutine(SpeedBoostCoroutine(ability));
+    }
+    
+    private System.Collections.IEnumerator SpeedBoostCoroutine(AbilityInstance ability)
+    {
+        float speedMultiplier = 1f + (ability.GetValue() / 100f);
+        playerController.walkSpeed *= speedMultiplier;
+        playerController.sprintSpeed *= speedMultiplier;
+        
+        yield return new WaitForSeconds(ability.data.duration);
+        
+        playerController.walkSpeed /= speedMultiplier;
+        playerController.sprintSpeed /= speedMultiplier;
+    }
+    
+    private void PerformHeal(AbilityInstance ability)
+    {
+        playerHealth.Heal((int)ability.GetValue());
+        Debug.Log($"Healed for {ability.GetValue()} HP");
+    }
+    
+    private void PerformShield(AbilityInstance ability)
+    {
+        playerHealth.AddArmor((int)ability.GetValue());
+        Debug.Log($"Added {ability.GetValue()} armor");
+    }
+    
+    private void PerformVampire(AbilityInstance ability)
+    {
+        // This would be handled in the weapon damage dealing
+        // Add a temporary buff that heals on hit
+        StartCoroutine(VampireCoroutine(ability));
+    }
+    
+    private System.Collections.IEnumerator VampireCoroutine(AbilityInstance ability)
+    {
+        // Mark player as having vampire active
+        yield return new WaitForSeconds(ability.data.duration);
+        // Remove vampire buff
+    }
+}
+
+[System.Serializable]
+public class AbilityInstance
+{
+    public AbilityData data;
+    public int level = 1;
+    public float currentCooldown = 0f;
+    
+    public AbilityInstance(AbilityData abilityData)
+    {
+        data = abilityData;
+        level = 1;
+        currentCooldown = 0f;
+    }
+    
+    public bool CanUse()
+    {
+        return currentCooldown <= 0f;
+    }
+    
+    public float GetCooldown()
+    {
+        return data.cooldown - (data.cooldownReductionPerLevel * (level - 1));
+    }
+    
+    public float GetValue()
+    {
+        return data.value + (data.valuePerLevel * (level - 1));
+    }
+}

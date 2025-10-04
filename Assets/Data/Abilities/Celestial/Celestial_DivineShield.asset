@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: Celestial_DivineShield
+  m_EditorClassIdentifier: 
+  abilityName: Divine Shield
+  abilityType: 1
+  abilityIcon: {fileID: 0}
+  abilityDescription: Become invulnerable for short duration (cannot shoot while active)
+  valuesPerLevel:
+  - 1
+  - 1.25
+  - 1.5
+  - 1.75
+  - 2
+  secondaryValuesPerLevel:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  cooldownsPerLevel:
+  - 45
+  - 42
+  - 39
+  - 36
+  - 33
+  manaCostPerLevel:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  visualEffectPrefab: {fileID: 0}
+  soundEffect: {fileID: 0}
+  balanceNotes: Active invuln. 1-2s duration, 45-33s cooldown. Cannot attack. Ultimate survival, counter to burst.

@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: Celestial_Resurrection
+  m_EditorClassIdentifier: 
+  abilityName: Resurrection
+  abilityType: 1
+  abilityIcon: {fileID: 0}
+  abilityDescription: Revive a dead ally with partial HP (must be near corpse)
+  valuesPerLevel:
+  - 40
+  - 50
+  - 60
+  - 70
+  - 80
+  secondaryValuesPerLevel:
+  - 5
+  - 4.5
+  - 4
+  - 3.5
+  - 3
+  cooldownsPerLevel:
+  - 90
+  - 85
+  - 80
+  - 75
+  - 70
+  manaCostPerLevel:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  visualEffectPrefab: {fileID: 0}
+  soundEffect: {fileID: 0}
+  balanceNotes: Active revive. 40-80% HP, 5-3m range, 90-70s cooldown. Ultimate support, game-changing, high skill.

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: Race_Dwarf
+  m_EditorClassIdentifier: 
+  raceName: Dwarf
+  raceType: 6
+  raceTier: 1
+  raceIcon: {fileID: 0}
+  raceColor: {r: 0.6, g: 0.4, b: 0.2, a: 1}
+  description: Tanky melee specialists with armor and burst damage. Rewards close-range combat and positioning.
+  playstyle: Armored tank with burst damage
+  bestFor: Site anchors, close-range fighters, AWP heavy hitters
+  counters: Armor penetration counters Stone Skin. Range counters melee abilities. Mobility escapes Shield Bash.
+  healthMultiplier: 1.15
+  speedMultiplier: 0.9
+  damageMultiplier: 1
+  armorBonus: 0
+  healthRegenPerSecond: 0
+  ultimateAbility: {fileID: 11400000, guid: STONESKIN_GUID, type: 2}
+  ability2: {fileID: 11400000, guid: SHIELDBASH_GUID, type: 2}
+  ability3: {fileID: 11400000, guid: HEROICSTRIKE_GUID, type: 2}
+  balanceNotes: Tier B. High HP (115%) with armor bonus. Slow speed (90%). Strong defense, requires positioning.

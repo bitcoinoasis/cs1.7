@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: BloodElf_ArcaneMissiles
+  m_EditorClassIdentifier: 
+  abilityName: Arcane Missiles
+  abilityType: 2
+  abilityIcon: {fileID: 0}
+  abilityDescription: Fire 3 magic missiles at cursor position (costs mana)
+  valuesPerLevel:
+  - 15
+  - 20
+  - 25
+  - 30
+  - 35
+  secondaryValuesPerLevel:
+  - 3
+  - 3
+  - 3
+  - 3
+  - 3
+  cooldownsPerLevel:
+  - 8
+  - 7.5
+  - 7
+  - 6.5
+  - 6
+  manaCostPerLevel:
+  - 30
+  - 28
+  - 26
+  - 24
+  - 22
+  visualEffectPrefab: {fileID: 0}
+  soundEffect: {fileID: 0}
+  balanceNotes: Active damage. 15-35 dmg x3 missiles, 8-6s cooldown, 30-22 mana cost. High skill cap.
