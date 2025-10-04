@@ -26,7 +26,7 @@ MonoBehaviour:
   damageMultiplier: 1.05
   armorBonus: 0
   healthRegenPerSecond: 0
-  ultimateAbility: {fileID: 11400000, guid: CRITICAL_STRIKE_GUID, type: 2}
-  ability2: {fileID: 11400000, guid: BASH_GUID, type: 2}
-  ability3: {fileID: 11400000, guid: REINCARNATION_GUID, type: 2}
+  ultimateAbility: {fileID: 11400000, guid: 0335bde2fba504955879762f64b226a1, type: 2}
+  ability2: {fileID: 11400000, guid: f06ea4bfe9ffd47afb5d62d2ca5ad908, type: 2}
+  ability3: {fileID: 11400000, guid: 5fc9898c1e6fd48b5881c5365734f05f, type: 2}
   balanceNotes: Tier S race. High HP (115%) with damage boost (105%). Slight speed penalty (95%) for balance. Critical Strike provides burst damage, Bash adds CC, Reincarnation gives second chances.

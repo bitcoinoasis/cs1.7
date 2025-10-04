@@ -26,7 +26,7 @@ MonoBehaviour:
   damageMultiplier: 1.05
   armorBonus: 0
   healthRegenPerSecond: 0
-  ultimateAbility: {fileID: 11400000, guid: BERSERKER_GUID, type: 2}
-  ability2: {fileID: 11400000, guid: REGENERATION_GUID, type: 2}
-  ability3: {fileID: 11400000, guid: AXEMASTERY_GUID, type: 2}
+  ultimateAbility: {fileID: 11400000, guid: f15401d5998dd429db4aa15b2a1277f0, type: 2}
+  ability2: {fileID: 11400000, guid: 1f57a6007e2b84a08976bade9421d405, type: 2}
+  ability3: {fileID: 11400000, guid: 0949f7d72a2374f7faffb7caad3eaafd, type: 2}
   balanceNotes: Tier A. Decent HP (105%) with damage boost (105%). Berserker rewards low-HP aggression. AK-47/M4 specialists.

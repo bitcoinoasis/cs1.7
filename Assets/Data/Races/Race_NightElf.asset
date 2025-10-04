@@ -26,7 +26,7 @@ MonoBehaviour:
   damageMultiplier: 1
   armorBonus: 0
   healthRegenPerSecond: 0
-  ultimateAbility: {fileID: 11400000, guid: EVASION_GUID, type: 2}
-  ability2: {fileID: 11400000, guid: BLINK_GUID, type: 2}
-  ability3: {fileID: 11400000, guid: THORNS_GUID, type: 2}
+  ultimateAbility: {fileID: 11400000, guid: a27f5667975af4c01a6deb86b9eefb8a, type: 2}
+  ability2: {fileID: 11400000, guid: 652baeeedf5184644bcbe9f1c9b58455, type: 2}
+  ability3: {fileID: 11400000, guid: 077a464d84f3f45e98a64029a16c7138, type: 2}
   balanceNotes: Tier S. Low HP (95%) compensated by Evasion. Highest speed (110%), best mobility (Blink). High skill ceiling.

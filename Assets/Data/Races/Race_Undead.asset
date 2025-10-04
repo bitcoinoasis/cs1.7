@@ -26,7 +26,7 @@ MonoBehaviour:
   damageMultiplier: 1
   armorBonus: 0
   healthRegenPerSecond: 0
-  ultimateAbility: {fileID: 11400000, guid: VAMPIRIC_GUID, type: 2}
-  ability2: {fileID: 11400000, guid: LEVITATION_GUID, type: 2}
-  ability3: {fileID: 11400000, guid: UNHOLY_GUID, type: 2}
+  ultimateAbility: {fileID: 11400000, guid: 6049c36ff7f364a0f9190c212aa23ff5, type: 2}
+  ability2: {fileID: 11400000, guid: e05d060a3244843abbecebce8a152b9d, type: 2}
+  ability3: {fileID: 11400000, guid: 24f11708d09754a9f9f2b4f0a2ae43df, type: 2}
   balanceNotes: Tier S. Balanced stats (100% HP, 105% speed). Lifesteal provides sustain, Levitation enables unique plays, Unholy punishes rushes.

@@ -26,7 +26,7 @@ MonoBehaviour:
   damageMultiplier: 1
   armorBonus: 0
   healthRegenPerSecond: 0
-  ultimateAbility: {fileID: 11400000, guid: MANASHIELD_GUID, type: 2}
-  ability2: {fileID: 11400000, guid: ARCANEMISSILES_GUID, type: 2}
-  ability3: {fileID: 11400000, guid: MANABURN_GUID, type: 2}
+  ultimateAbility: {fileID: 11400000, guid: b6d51681ef41443d4bc89a4093743405, type: 2}
+  ability2: {fileID: 11400000, guid: 7a97fb02e54fa44009d3e2acadbba341, type: 2}
+  ability3: {fileID: 11400000, guid: 3fb482955577240a0b602f860a79e1c1, type: 2}
   balanceNotes: Tier A. Low HP (90%) with mana as second health bar. Requires ability management. High skill, high reward.

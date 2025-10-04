@@ -26,7 +26,7 @@ MonoBehaviour:
   damageMultiplier: 1
   armorBonus: 0
   healthRegenPerSecond: 0
-  ultimateAbility: {fileID: 11400000, guid: DEVOTION_GUID, type: 2}
-  ability2: {fileID: 11400000, guid: INVISIBILITY_GUID, type: 2}
-  ability3: {fileID: 11400000, guid: TELEPORT_GUID, type: 2}
+  ultimateAbility: {fileID: 11400000, guid: a9e7c1b1258f948429c1134de337597d, type: 2}
+  ability2: {fileID: 11400000, guid: 9ff4ccb89bca74863a0c6ffa399f7317, type: 2}
+  ability3: {fileID: 11400000, guid: 7a06a95251c2241edace28ada5b1486f, type: 2}
   balanceNotes: Tier S. Extra HP (110%) with best defensive ultimate. Invisibility and Teleport provide outplay potential.

@@ -26,7 +26,7 @@ MonoBehaviour:
   damageMultiplier: 0.95
   armorBonus: 0
   healthRegenPerSecond: 0
-  ultimateAbility: {fileID: 11400000, guid: HOLYLIGHT_GUID, type: 2}
-  ability2: {fileID: 11400000, guid: DIVINESHIELD_GUID, type: 2}
-  ability3: {fileID: 11400000, guid: RESURRECTION_GUID, type: 2}
+  ultimateAbility: {fileID: 11400000, guid: bad66c954b0654837967911326a4745a, type: 2}
+  ability2: {fileID: 11400000, guid: f8546148915444a4f9ccb2dffbdc6a2b, type: 2}
+  ability3: {fileID: 11400000, guid: eb8533466c80d4ad0b980af7bc1796eb, type: 2}
   balanceNotes: Tier C solo, Tier S+ in teams. Low combat stats (95% HP/dmg). Healing and revive are game-changers. Skill-based targeting.
