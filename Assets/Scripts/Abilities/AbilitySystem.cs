@@ -234,12 +234,32 @@ public class AbilitySystem : MonoBehaviour
     public void ResetAllCooldowns()
     {
         if (ultimateAbility != null)
-            ultimateAbility.currentCooldown = 0f;
+            ultimateAbility.ResetCooldown();
         if (ability2 != null)
-            ability2.currentCooldown = 0f;
+            ability2.ResetCooldown();
         if (ability3 != null)
-            ability3.currentCooldown = 0f;
+            ability3.ResetCooldown();
             
         Debug.Log("[AbilitySystem] All cooldowns reset!");
+    }
+    
+    // Public accessor methods for UI
+    public int GetAbilityLevel(int abilityIndex)
+    {
+        // Returns current ability level (1-5)
+        return currentLevel;
+    }
+    
+    public float GetRemainingCooldown(int abilityIndex)
+    {
+        Ability ability = null;
+        switch (abilityIndex)
+        {
+            case 0: ability = ultimateAbility; break;
+            case 1: ability = ability2; break;
+            case 2: ability = ability3; break;
+        }
+        
+        return ability != null ? ability.CooldownRemaining : 0f;
     }
 }

@@ -153,4 +153,12 @@ public abstract class Ability : MonoBehaviour
     {
         PlayVisualEffect(transform.position);
     }
+    
+    /// <summary>
+    /// Reset cooldown (for debug/cheat commands)
+    /// </summary>
+    public void ResetCooldown()
+    {
+        currentCooldown = 0f;
+    }
 }

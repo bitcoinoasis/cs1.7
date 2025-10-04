@@ -52,6 +52,10 @@ public class Weapon : MonoBehaviour
     private float currentRecoil = 0f;
     private Crosshair crosshair;
     
+    // Public properties for external access
+    public int KillReward => weaponData != null ? weaponData.killReward : 0;
+    public float ReloadTime => weaponData != null ? weaponData.reloadTime : 0f;
+    
     private void Start()
     {
         if (weaponData != null)
@@ -128,7 +132,7 @@ public class Weapon : MonoBehaviour
         }
     }
     
-    private void Shoot()
+    public void Shoot()
     {
         if (currentAmmo <= 0)
         {
@@ -305,5 +309,10 @@ public class Weapon : MonoBehaviour
     {
         lastShotTime = Time.time;
     }
+    
+    // Public Fire() method for BotAI
+    public void Fire()
+    {
+        Shoot();
+    }
 }
-

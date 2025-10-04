@@ -17,7 +17,7 @@ public class AbilityData : ScriptableObject
     [TextArea(2, 4)]
     public string description;
     public AbilityType abilityType;
-    public Sprite icon;
+    public Sprite abilityIcon;
     
     [Header("Stats per Level (5 levels)")]
     [Tooltip("Main stat: damage, heal, chance %, etc.")]
@@ -41,4 +41,7 @@ public class AbilityData : ScriptableObject
     [Header("Balance Notes")]
     [TextArea(3, 5)]
     public string balanceNotes;
+    
+    // Helper property for UI - returns level 1 cooldown
+    public float cooldown => cooldownsPerLevel != null && cooldownsPerLevel.Length > 0 ? cooldownsPerLevel[0] : 0f;
 }

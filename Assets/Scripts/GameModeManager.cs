@@ -136,7 +136,7 @@ public class GameModeManager : MonoBehaviour
 
     void AssignTeams()
     {
-        PlayerHealth[] allPlayers = FindObjectsOfType<PlayerHealth>();
+        PlayerHealth[] allPlayers = FindObjectsByType<PlayerHealth>(FindObjectsSortMode.None);
         
         team1Players.Clear();
         team2Players.Clear();
@@ -232,8 +232,8 @@ public class GameModeManager : MonoBehaviour
     void CheckBombDefusalWin()
     {
         // Check if all players on one team are dead
-        bool team1Alive = team1Players.Any(p => p != null && !p.GetComponent<PlayerHealth>().IsDead);
-        bool team2Alive = team2Players.Any(p => p != null && !p.GetComponent<PlayerHealth>().IsDead);
+        bool team1Alive = team1Players.Any(p => p != null && !p.GetComponent<PlayerHealth>().IsDead());
+        bool team2Alive = team2Players.Any(p => p != null && !p.GetComponent<PlayerHealth>().IsDead());
 
         if (!team1Alive && !isBombPlanted)
         {
@@ -278,7 +278,7 @@ public class GameModeManager : MonoBehaviour
 
     void CheckDeathmatchWin()
     {
-        PlayerHealth[] allPlayers = FindObjectsOfType<PlayerHealth>();
+        PlayerHealth[] allPlayers = FindObjectsByType<PlayerHealth>(FindObjectsSortMode.None);
         
         foreach (var player in allPlayers)
         {
@@ -344,7 +344,7 @@ public class GameModeManager : MonoBehaviour
 
     void ResetAllPlayers()
     {
-        PlayerHealth[] allPlayers = FindObjectsOfType<PlayerHealth>();
+        PlayerHealth[] allPlayers = FindObjectsByType<PlayerHealth>(FindObjectsSortMode.None);
         foreach (var player in allPlayers)
         {
             player.Respawn();
@@ -413,8 +413,14 @@ public class GameModeManager : MonoBehaviour
     {
         if (respawnEnabled && (currentGameMode == GameMode.Deathmatch || currentGameMode == GameMode.GunGame))
         {
-            Invoke(() => RespawnPlayer(player), respawnDelay);
+            StartCoroutine(RespawnPlayerDelayed(player, respawnDelay));
         }
+    }
+
+    System.Collections.IEnumerator RespawnPlayerDelayed(GameObject player, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        RespawnPlayer(player);
     }
 
     void RespawnPlayer(GameObject player)
@@ -429,7 +435,7 @@ public class GameModeManager : MonoBehaviour
     // Gun Game specific
     void InitializeGunGame()
     {
-        PlayerHealth[] allPlayers = FindObjectsOfType<PlayerHealth>();
+        PlayerHealth[] allPlayers = FindObjectsByType<PlayerHealth>(FindObjectsSortMode.None);
         foreach (var player in allPlayers)
         {
             playerGunGameLevels[player.gameObject] = 0;

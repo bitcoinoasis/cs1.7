@@ -101,7 +101,7 @@ public class PlayerHealth : MonoBehaviour
         Invoke(nameof(Respawn), 3f);
     }
     
-    private void Respawn()
+    public void Respawn()
     {
         isDead = false;
         currentHealth = maxHealth;
@@ -123,4 +123,7 @@ public class PlayerHealth : MonoBehaviour
     {
         return isDead;
     }
+    
+    // Property version for convenience
+    public bool IsDeadProperty => isDead;
 }

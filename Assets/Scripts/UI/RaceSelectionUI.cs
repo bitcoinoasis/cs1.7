@@ -143,18 +143,18 @@ public class RaceSelectionUI : MonoBehaviour
         }
     }
 
-    Color GetTierColor(string tier)
+    Color GetTierColor(RaceTier tier)
     {
-        switch (tier.ToUpper())
+        switch (tier)
         {
-            case "S":
-                return new Color(1f, 0.84f, 0f); // Gold
-            case "A":
-                return new Color(0.75f, 0.75f, 0.75f); // Silver
-            case "B":
+            case RaceTier.Starter:
+                return Color.green; // Easy/Beginner
+            case RaceTier.Intermediate:
                 return new Color(0.8f, 0.5f, 0.2f); // Bronze
-            case "C":
-                return Color.white;
+            case RaceTier.Advanced:
+                return new Color(0.75f, 0.75f, 0.75f); // Silver
+            case RaceTier.Expert:
+                return new Color(1f, 0.84f, 0f); // Gold
             default:
                 return Color.white;
         }

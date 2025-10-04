@@ -147,7 +147,7 @@ public class BotSpawner : MonoBehaviour
     [ContextMenu("Clear All Bots")]
     public void ClearAllBots()
     {
-        BotAI[] bots = FindObjectsOfType<BotAI>();
+        BotAI[] bots = FindObjectsByType<BotAI>(FindObjectsSortMode.None);
         foreach (var bot in bots)
         {
             Destroy(bot.gameObject);

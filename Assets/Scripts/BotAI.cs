@@ -77,7 +77,7 @@ public class BotAI : MonoBehaviour
 
     void Update()
     {
-        if (health.IsDead) return;
+        if (health.IsDead()) return;
 
         // Find and track targets
         FindTarget();
@@ -150,14 +150,14 @@ public class BotAI : MonoBehaviour
 
     void FindTarget()
     {
-        PlayerHealth[] allPlayers = FindObjectsOfType<PlayerHealth>();
+        PlayerHealth[] allPlayers = FindObjectsByType<PlayerHealth>(FindObjectsSortMode.None);
         float closestDistance = detectionRange;
         Transform closestTarget = null;
 
         foreach (PlayerHealth player in allPlayers)
         {
             // Skip self, dead players, and teammates
-            if (player == health || player.IsDead) continue;
+            if (player == health || player.IsDead()) continue;
             
             // Check if on different team (implement team check)
             GameObject playerObj = player.gameObject;
@@ -195,7 +195,7 @@ public class BotAI : MonoBehaviour
         float distanceToTarget = Vector3.Distance(transform.position, currentTarget.position);
         
         // Decide whether to retreat
-        isRetreating = health.CurrentHealth < retreatHealthThreshold;
+        isRetreating = health.currentHealth < retreatHealthThreshold;
 
         // Movement logic
         if (isRetreating)
@@ -276,7 +276,7 @@ public class BotAI : MonoBehaviour
         // Assuming weapon has Reload() method
         if (currentWeapon != null)
         {
-            Invoke(nameof(FinishReload), currentWeapon.reloadTime);
+            Invoke(nameof(FinishReload), currentWeapon.ReloadTime);
         }
     }
 

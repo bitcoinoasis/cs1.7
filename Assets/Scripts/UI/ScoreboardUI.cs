@@ -111,7 +111,7 @@ public class ScoreboardUI : MonoBehaviour
     void UpdatePlayerRows()
     {
         // Get all players
-        PlayerHealth[] allPlayers = FindObjectsOfType<PlayerHealth>();
+        PlayerHealth[] allPlayers = FindObjectsByType<PlayerHealth>(FindObjectsSortMode.None);
         
         // Separate into teams
         List<PlayerHealth> team1 = new List<PlayerHealth>();
@@ -183,9 +183,9 @@ public class ScoreboardUI : MonoBehaviour
         // Get race
         string race = "None";
         PlayerRace playerRace = player.GetComponent<PlayerRace>();
-        if (playerRace != null && playerRace.CurrentRace != null)
+        if (playerRace != null && playerRace.GetCurrentRace() != null)
         {
-            race = playerRace.CurrentRace.raceName;
+            race = playerRace.GetCurrentRace().raceName;
         }
 
         // Update UI elements
@@ -215,7 +215,7 @@ public class ScoreboardUI : MonoBehaviour
         if (pingText != null) pingText.text = ping.ToString();
 
         // Highlight dead players
-        if (player.IsDead)
+        if (player.IsDead())
         {
             Image background = row.GetComponent<Image>();
             if (background != null)

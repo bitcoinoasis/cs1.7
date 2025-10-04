@@ -49,9 +49,9 @@ public class AbilityHUD : MonoBehaviour
 
     void UpdateAbilityDisplay()
     {
-        if (playerRace == null || playerRace.CurrentRace == null) return;
+        if (playerRace == null || playerRace.GetCurrentRace() == null) return;
 
-        RaceData race = playerRace.CurrentRace;
+        RaceData race = playerRace.GetCurrentRace();
         
         // Update each ability slot
         for (int i = 0; i < 3; i++)
@@ -96,13 +96,13 @@ public class AbilityHUD : MonoBehaviour
 
     void UpdateCooldowns()
     {
-        if (playerRace == null || playerRace.CurrentRace == null) return;
+        if (playerRace == null || playerRace.GetCurrentRace() == null) return;
 
         for (int i = 0; i < 3; i++)
         {
-            if (i >= playerRace.CurrentRace.abilities.Length) continue;
+            if (i >= playerRace.GetCurrentRace().abilities.Length) continue;
             
-            AbilityData ability = playerRace.CurrentRace.abilities[i];
+            AbilityData ability = playerRace.GetCurrentRace().abilities[i];
             if (ability == null) continue;
 
             // Get cooldown from ability system
@@ -150,12 +150,11 @@ public class AbilityHUD : MonoBehaviour
     {
         if (!manaPanel.activeSelf) return;
 
-        // Blood Elf mana system
-        BloodElfManaShieldAbility manaShield = FindObjectOfType<BloodElfManaShieldAbility>();
-        if (manaShield != null)
+        // Blood Elf mana system - use AbilitySystem
+        if (abilitySystem != null && abilitySystem.maxMana > 0)
         {
-            float currentMana = manaShield.currentMana;
-            float maxMana = manaShield.GetMaxMana();
+            float currentMana = abilitySystem.currentMana;
+            float maxMana = abilitySystem.maxMana;
             
             if (manaBar != null)
             {

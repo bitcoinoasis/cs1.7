@@ -114,7 +114,7 @@ public class EconomySystem : MonoBehaviour
         // Determine reward based on weapon
         if (weaponUsed != null)
         {
-            reward = weaponUsed.killReward;
+            reward = weaponUsed.KillReward;
         }
 
         AddMoney(killer, reward);

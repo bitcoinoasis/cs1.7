@@ -57,4 +57,7 @@ public class RaceData : ScriptableObject
     public string bestFor;
     [TextArea(2, 3)]
     public string counters;
+    
+    // Helper property for UI access
+    public AbilityData[] abilities => new AbilityData[] { ultimateAbility, ability2, ability3 };
 }
