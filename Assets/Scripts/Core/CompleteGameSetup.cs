@@ -124,18 +124,26 @@ namespace CS17.Core
             // Find or create player spawn point
             if (playerSpawnPoint == null)
             {
-                GameObject[] spawns = GameObject.FindGameObjectsWithTag("PlayerSpawn");
-                if (spawns.Length > 0)
+                try
                 {
-                    playerSpawnPoint = spawns[0].transform;
+                    GameObject[] spawns = GameObject.FindGameObjectsWithTag("PlayerSpawn");
+                    if (spawns.Length > 0)
+                    {
+                        playerSpawnPoint = spawns[0].transform;
+                    }
                 }
-                else
+                catch (UnityException)
+                {
+                    // Tag doesn't exist, create spawn point
+                }
+                
+                if (playerSpawnPoint == null)
                 {
                     // Create default spawn
                     GameObject spawnObj = new GameObject("PlayerSpawn");
-                    spawnObj.tag = "PlayerSpawn";
                     playerSpawnPoint = spawnObj.transform;
                     playerSpawnPoint.position = new Vector3(0, 2, -20);
+                    Debug.Log("[CompleteGameSetup] Created default player spawn point");
                 }
             }
 
@@ -237,26 +245,34 @@ namespace CS17.Core
             // Find bot spawn points
             if (botSpawnPoints == null || botSpawnPoints.Length == 0)
             {
-                GameObject[] spawns = GameObject.FindGameObjectsWithTag("BotSpawn");
-                if (spawns.Length > 0)
+                try
                 {
-                    botSpawnPoints = new Transform[spawns.Length];
-                    for (int i = 0; i < spawns.Length; i++)
+                    GameObject[] spawns = GameObject.FindGameObjectsWithTag("BotSpawn");
+                    if (spawns.Length > 0)
                     {
-                        botSpawnPoints[i] = spawns[i].transform;
+                        botSpawnPoints = new Transform[spawns.Length];
+                        for (int i = 0; i < spawns.Length; i++)
+                        {
+                            botSpawnPoints[i] = spawns[i].transform;
+                        }
                     }
                 }
-                else
+                catch (UnityException)
+                {
+                    // Tag doesn't exist, will create spawn points below
+                }
+                
+                if (botSpawnPoints == null || botSpawnPoints.Length == 0)
                 {
                     // Create default bot spawns (opposite side of map)
                     botSpawnPoints = new Transform[5];
                     for (int i = 0; i < 5; i++)
                     {
                         GameObject spawnObj = new GameObject($"BotSpawn_{i}");
-                        spawnObj.tag = "BotSpawn";
                         spawnObj.transform.position = new Vector3((i - 2) * 3, 2, 20);
                         botSpawnPoints[i] = spawnObj.transform;
                     }
+                    Debug.Log("[CompleteGameSetup] Created default bot spawn points");
                 }
             }
 
