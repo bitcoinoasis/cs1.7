@@ -165,7 +165,13 @@ namespace CS17.Core
                     camObj.transform.SetParent(player.transform);
                     camObj.transform.localPosition = new Vector3(0, 0.5f, 0);
                     Camera cam = camObj.AddComponent<Camera>();
-                    camObj.AddComponent<AudioListener>();
+                    
+                    // Only add AudioListener if none exists in scene
+                    if (FindObjectOfType<AudioListener>() == null)
+                    {
+                        camObj.AddComponent<AudioListener>();
+                    }
+                    
                     camObj.tag = "MainCamera";
 
                     player.transform.position = playerSpawnPoint.position;
@@ -184,6 +190,13 @@ namespace CS17.Core
                 
                 // Load weapon shop items from generated weapons
                 LoadWeaponShopItems(buyMenu);
+            }
+
+            // Add race selection menu
+            if (player.GetComponent<SimpleRaceSelection>() == null)
+            {
+                SimpleRaceSelection raceMenu = player.AddComponent<SimpleRaceSelection>();
+                raceMenu.showOnStart = true; // Show on first spawn
             }
 
             Debug.Log("[CompleteGameSetup] ✓ Player spawned at " + playerSpawnPoint.position);
