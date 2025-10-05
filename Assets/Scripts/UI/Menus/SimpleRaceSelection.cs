@@ -185,15 +185,14 @@ public class SimpleRaceSelection : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    private Color GetTierColor(int tier)
+    private Color GetTierColor(RaceTier tier)
     {
         switch (tier)
         {
-            case 1: return Color.white;
-            case 2: return Color.green;
-            case 3: return Color.cyan;
-            case 4: return Color.magenta;
-            case 5: return new Color(1f, 0.5f, 0f); // Orange
+            case RaceTier.Starter: return Color.white;
+            case RaceTier.Intermediate: return Color.green;
+            case RaceTier.Advanced: return Color.cyan;
+            case RaceTier.Expert: return Color.magenta;
             default: return Color.gray;
         }
     }
