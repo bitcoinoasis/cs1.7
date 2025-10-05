@@ -295,7 +295,7 @@ namespace CS17.Editor
                 case WeaponType.SMG: return new Vector3(0, 0.05f, 0.8f);
                 case WeaponType.Rifle: return new Vector3(0, 0.05f, 1.1f);
                 case WeaponType.Sniper: return new Vector3(0, 0.06f, 1.45f);
-                case WeaponType.Heavy: return new Vector3(0, 0.08f, 1.2f);
+                case WeaponType.Shotgun: return new Vector3(0, 0.08f, 1.2f);
                 default: return Vector3.forward;
             }
         }
