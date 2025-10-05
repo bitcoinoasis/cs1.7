@@ -1,4 +1,5 @@
 using UnityEngine;
+using CS17.Core;
 
 /// <summary>
 /// Simple on-screen buy menu using Unity's OnGUI (no Canvas needed!)

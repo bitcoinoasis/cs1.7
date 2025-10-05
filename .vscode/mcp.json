@@ -3,9 +3,10 @@
 		"mcp-unity": {
 			"command": "node",
 			"args": [
-				"/Users/syedshah/Library/PackageCache/com.gamelovers.mcp-unity@7a061ae194bd/Server~/build/index.js"
+				"build/index.js"
 			],
-			"type": "stdio"
+			"type": "stdio",
+			"cwd": "/Users/syedshah/cs1.7/Library/PackageCache/com.gamelovers.mcp-unity@7a061ae194bd/Server~"
 		}
 	},
 	"inputs": []

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using CS17.Core;
 
 public class BuyMenu : MonoBehaviour
 {
