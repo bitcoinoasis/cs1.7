@@ -13,6 +13,14 @@ namespace CS17.Editor
         {
             Debug.Log("[MapGenerator] Creating test map...");
 
+            // Check if TestMap already exists
+            GameObject existingMap = GameObject.Find("TestMap");
+            if (existingMap != null)
+            {
+                Debug.LogWarning("[MapGenerator] TestMap already exists! Deleting old one...");
+                Object.DestroyImmediate(existingMap);
+            }
+
             // Create map parent
             GameObject map = new GameObject("TestMap");
 
