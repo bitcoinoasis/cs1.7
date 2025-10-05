@@ -102,8 +102,8 @@ namespace CS17.Editor
 
         private static void GenerateHeavy()
         {
-            CreateWeapon("M249", WeaponType.Heavy, 5200, 32, 100, 5.7f, 0.75f, new Color(0.4f, 0.35f, 0.25f));
-            CreateWeapon("Nova", WeaponType.Heavy, 1050, 26, 8, 1.0f, 0.88f, new Color(0.3f, 0.25f, 0.2f));
+            CreateWeapon("M249", WeaponType.Shotgun, 5200, 32, 100, 5.7f, 0.75f, new Color(0.4f, 0.35f, 0.25f));
+            CreateWeapon("Nova", WeaponType.Shotgun, 1050, 26, 8, 1.0f, 0.88f, new Color(0.3f, 0.25f, 0.2f));
         }
 
         #endregion
@@ -119,10 +119,10 @@ namespace CS17.Editor
             data.headshotMultiplier = 4f;
             data.fireRate = fireRate;
             data.magazineSize = magazineSize;
-            data.maxAmmo = magazineSize * 3;
+            data.reserveAmmo = magazineSize * 3;
             data.reloadTime = reloadTime;
             data.range = type == WeaponType.Sniper ? 500f : type == WeaponType.Rifle ? 300f : 200f;
-            data.recoil = damage / 30f;
+            data.recoilAmount = damage / 30f;
             data.price = price;
             data.killReward = 300;
 
@@ -175,7 +175,7 @@ namespace CS17.Editor
                 case WeaponType.Sniper:
                     CreateSniperModel(model, color);
                     break;
-                case WeaponType.Heavy:
+                case WeaponType.Shotgun:
                     CreateHeavyModel(model, color);
                     break;
             }
