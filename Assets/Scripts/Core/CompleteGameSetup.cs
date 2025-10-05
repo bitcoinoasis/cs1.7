@@ -105,14 +105,14 @@ namespace CS17.Core
             GameObject healthObj = new GameObject("HealthDisplay");
             healthObj.transform.SetParent(canvas.transform);
             
-            var healthDisplay = healthObj.AddComponent<SimpleHealthDisplay>();
-            
-            RectTransform healthRect = healthObj.GetComponent<RectTransform>();
+            RectTransform healthRect = healthObj.AddComponent<RectTransform>();
             healthRect.anchorMin = new Vector2(0, 0);
             healthRect.anchorMax = new Vector2(0, 0);
             healthRect.pivot = new Vector2(0, 0);
             healthRect.anchoredPosition = new Vector2(20, 20);
             healthRect.sizeDelta = new Vector2(200, 100);
+            
+            var healthDisplay = healthObj.AddComponent<SimpleHealthDisplay>();
 
             // Money Display (top-left) - will be created by SimpleBuyMenu
             
