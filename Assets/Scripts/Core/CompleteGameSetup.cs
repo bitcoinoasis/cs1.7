@@ -320,7 +320,18 @@ namespace CS17.Core
                 // Add AI components
                 bot.AddComponent<CharacterController>();
                 var botComponent = bot.AddComponent<Bot>();
-                var botAI = bot.AddComponent<BotAI>();
+                
+                // Only add BotAI if NavMesh is baked
+                UnityEngine.AI.NavMeshTriangulation navMeshData = UnityEngine.AI.NavMesh.CalculateTriangulation();
+                if (navMeshData.vertices.Length > 0)
+                {
+                    var botAI = bot.AddComponent<BotAI>();
+                }
+                else
+                {
+                    Debug.LogWarning($"[CompleteGameSetup] NavMesh not baked - Bot {index} will not have AI navigation. Bake NavMesh via Window → AI → Navigation.");
+                }
+                
                 bot.AddComponent<PlayerHealth>();
                 bot.AddComponent<WeaponManager>();
 
