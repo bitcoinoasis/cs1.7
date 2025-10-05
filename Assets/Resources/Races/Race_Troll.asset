@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: Race_Troll
+  m_EditorClassIdentifier: 
+  raceName: Troll
+  raceType: 5
+  raceTier: 1
+  raceIcon: {fileID: 0}
+  raceColor: {r: 0, g: 0.7, b: 0.5, a: 1}
+  description: Aggressive berserkers with regeneration and weapon mastery. High risk/reward with clutch potential.
+  playstyle: Aggressive berserker with sustain
+  bestFor: Entry fraggers, riflers, aggressive AWPers, clutch players
+  counters: Burst damage prevents regen. Evasion counters Berserker. Mobility counters low-HP aggression.
+  healthMultiplier: 1.05
+  speedMultiplier: 1
+  damageMultiplier: 1.05
+  armorBonus: 0
+  healthRegenPerSecond: 0
+  ultimateAbility: {fileID: 11400000, guid: f15401d5998dd429db4aa15b2a1277f0, type: 2}
+  ability2: {fileID: 11400000, guid: 1f57a6007e2b84a08976bade9421d405, type: 2}
+  ability3: {fileID: 11400000, guid: 0949f7d72a2374f7faffb7caad3eaafd, type: 2}
+  balanceNotes: Tier A. Decent HP (105%) with damage boost (105%). Berserker rewards low-HP aggression. AK-47/M4 specialists.

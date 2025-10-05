@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: Race_NightElf
+  m_EditorClassIdentifier: 
+  raceName: Night Elf
+  raceType: 3
+  raceTier: 0
+  raceIcon: {fileID: 0}
+  raceColor: {r: 0, g: 0.8, b: 0.4, a: 1}
+  description: Elusive warriors with dodge and mobility. Best counter to high-damage races, rewards skilled movement.
+  playstyle: Evasive skirmisher with best mobility
+  bestFor: Duelists, flankers, players who value outplay mechanics
+  counters: Hard counter to Orc and burst builds. Countered by sustained damage and headshots.
+  healthMultiplier: 0.95
+  speedMultiplier: 1.1
+  damageMultiplier: 1
+  armorBonus: 0
+  healthRegenPerSecond: 0
+  ultimateAbility: {fileID: 11400000, guid: a27f5667975af4c01a6deb86b9eefb8a, type: 2}
+  ability2: {fileID: 11400000, guid: 652baeeedf5184644bcbe9f1c9b58455, type: 2}
+  ability3: {fileID: 11400000, guid: 077a464d84f3f45e98a64029a16c7138, type: 2}
+  balanceNotes: Tier S. Low HP (95%) compensated by Evasion. Highest speed (110%), best mobility (Blink). High skill ceiling.
