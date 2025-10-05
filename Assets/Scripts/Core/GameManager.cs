@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using CS17.Core;
 
 public enum Team
 {
@@ -17,66 +18,105 @@ public enum RoundState
     RoundEnd
 }
 
-public class GameManager : MonoBehaviour
+namespace CS17.Core
 {
-    public static GameManager Instance;
-    
-    [Header("Demo Mode")]
-    public bool demoMode = true;
-    public int demoModeUnlimitedMoney = 16000;
-    
-    [Header("Round Settings")]
-    public float buyTime = 15f;
-    public float roundTime = 120f;
-    public float roundEndTime = 5f;
-    public int roundsToWin = 16;
-    
-    [Header("Money Settings")]
-    public int startMoney = 800;
-    public int killReward = 300;
-    public int winReward = 3500;
-    public int loseReward = 1400;
-    
-    [Header("Current State")]
-    public RoundState currentState = RoundState.Waiting;
-    public int currentRound = 0;
-    public int terroristScore = 0;
-    public int counterTerroristScore = 0;
-    public float roundTimer = 0f;
-    
-    [Header("Events")]
-    public UnityEvent<Team> OnRoundWin;
-    public UnityEvent<RoundState> OnRoundStateChanged;
-    public UnityEvent<float> OnRoundTimerUpdate;
-    
-    private List<PlayerInfo> players = new List<PlayerInfo>();
-    
-    private void Awake()
+    /// <summary>
+    /// Main game manager - handles game state, rounds, and player management
+    /// Uses EventSystem for communication and ServiceLocator for dependencies
+    /// </summary>
+    public class GameManager : MonoBehaviour
     {
-        if (Instance == null)
+        public static GameManager Instance { get; private set; }
+        
+        [Header("Demo Mode")]
+        public bool demoMode = true;
+        public int demoModeUnlimitedMoney = 16000;
+        
+        [Header("Round Settings")]
+        public float buyTime = 15f;
+        public float roundTime = 120f;
+        public float roundEndTime = 5f;
+        public int roundsToWin = 16;
+        
+        [Header("Money Settings")]
+        public int startMoney = 800;
+        public int killReward = 300;
+        public int winReward = 3500;
+        public int loseReward = 1400;
+        
+        [Header("Current State")]
+        public RoundState currentState = RoundState.Waiting;
+        public int currentRound = 0;
+        public int terroristScore = 0;
+        public int counterTerroristScore = 0;
+        public float roundTimer = 0f;
+        
+        [Header("Events")]
+        public UnityEvent<Team> OnRoundWin;
+        public UnityEvent<RoundState> OnRoundStateChanged;
+        public UnityEvent<float> OnRoundTimerUpdate;
+        
+        private List<PlayerInfo> players = new List<PlayerInfo>();
+        
+        private void Awake()
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+                
+                // Register with ServiceLocator
+                Services.Register(this);
+                
+                Debug.Log("[GameManager] Initialized and registered with ServiceLocator");
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
-        else
+        
+        private void Start()
         {
-            Destroy(gameObject);
+            // Initialize game
+            Initialize();
+            
+            if (!demoMode)
+            {
+                StartNewRound();
+            }
+            else
+            {
+                // In demo mode, start in active state with no timers
+                SetState(RoundState.Active);
+            }
         }
-    }
-    
-    private void Start()
-    {
-        if (!demoMode)
+        
+        private void Initialize()
         {
-            StartNewRound();
+            // Publish game started event
+            EventSystem.Instance.Publish(GameEvents.GAME_STARTED);
         }
-        else
+        
+        private void SetState(RoundState newState)
         {
-            // In demo mode, start in active state with no timers
-            currentState = RoundState.Active;
+            currentState = newState;
             OnRoundStateChanged?.Invoke(currentState);
+            
+            // Publish state change event
+            switch (newState)
+            {
+                case RoundState.BuyTime:
+                    EventSystem.Instance.Publish(GameEvents.BUY_TIME_STARTED);
+                    break;
+                case RoundState.Active:
+                    EventSystem.Instance.Publish(GameEvents.BUY_TIME_ENDED);
+                    break;
+                case RoundState.RoundEnd:
+                    EventSystem.Instance.Publish(GameEvents.ROUND_ENDED);
+                    break;
+            }
         }
-    }
     
     private void Update()
     {
@@ -296,6 +336,7 @@ public class GameManager : MonoBehaviour
         {
             info.money += amount;
         }
+    }
     }
 }
 

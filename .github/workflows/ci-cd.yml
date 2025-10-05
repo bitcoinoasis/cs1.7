@@ -1,0 +1,184 @@
+name: Unity CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # Build and Test
+  build-and-test:
+    name: Build and Test for ${{ matrix.targetPlatform }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform:
+          - StandaloneOSX # Build macOS standalone
+          - StandaloneWindows64 # Build Windows 64-bit
+          - StandaloneLinux64 # Build Linux 64-bit
+    
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      # Cache Library folder
+      - name: Cache Unity Library
+        uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-${{ matrix.targetPlatform }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-${{ matrix.targetPlatform }}-
+            Library-
+
+      # Run tests
+      - name: Run Unity Tests
+        uses: game-ci/unity-test-runner@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: .
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          unityVersion: 2022.3.10f1
+          testMode: all
+          coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport'
+
+      # Upload test results
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Test Results ${{ matrix.targetPlatform }}
+          path: artifacts/test-results
+
+      # Build project
+      - name: Build Unity Project
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: .
+          unityVersion: 2022.3.10f1
+          targetPlatform: ${{ matrix.targetPlatform }}
+          buildName: CS17-${{ matrix.targetPlatform }}
+          buildsPath: build
+
+      # Upload build artifact
+      - name: Upload Build
+        uses: actions/upload-artifact@v3
+        with:
+          name: Build-${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
+
+  # Code Quality Check
+  code-quality:
+    name: Code Quality Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Run Code Analysis
+        run: |
+          echo "Running code quality checks..."
+          # Add your code analysis tools here (e.g., SonarQube, CodeQL)
+          
+      - name: Check for TODOs
+        run: |
+          echo "Checking for TODO comments..."
+          grep -r "TODO" Assets/Scripts || echo "No TODOs found"
+
+  # Deploy (only on main branch)
+  deploy:
+    name: Deploy to Itch.io
+    needs: [build-and-test, code-quality]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - name: Download all builds
+        uses: actions/download-artifact@v3
+        with:
+          path: builds
+
+      - name: Deploy to Itch.io (Windows)
+        uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: windows
+          ITCH_GAME: cs17
+          ITCH_USER: ${{ secrets.ITCH_USER }}
+          PACKAGE: builds/Build-StandaloneWindows64
+          VERSION: ${{ github.sha }}
+
+      - name: Deploy to Itch.io (macOS)
+        uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: osx
+          ITCH_GAME: cs17
+          ITCH_USER: ${{ secrets.ITCH_USER }}
+          PACKAGE: builds/Build-StandaloneOSX
+          VERSION: ${{ github.sha }}
+
+      - name: Deploy to Itch.io (Linux)
+        uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: linux
+          ITCH_GAME: cs17
+          ITCH_USER: ${{ secrets.ITCH_USER }}
+          PACKAGE: builds/Build-StandaloneLinux64
+          VERSION: ${{ github.sha }}
+
+  # Create Release
+  create-release:
+    name: Create GitHub Release
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - name: Download all builds
+        uses: actions/download-artifact@v3
+        with:
+          path: builds
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: builds/**/*
+          tag_name: v${{ github.run_number }}
+          name: Release v${{ github.run_number }}
+          body: |
+            ## CS 1.7 - Counter-Strike Warcraft Mod
+            
+            ### Changes in this release:
+            ${{ github.event.head_commit.message }}
+            
+            ### Downloads:
+            - Windows 64-bit
+            - macOS
+            - Linux 64-bit
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
