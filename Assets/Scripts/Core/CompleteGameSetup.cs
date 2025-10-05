@@ -167,7 +167,7 @@ namespace CS17.Core
                     Camera cam = camObj.AddComponent<Camera>();
                     
                     // Only add AudioListener if none exists in scene
-                    if (FindObjectOfType<AudioListener>() == null)
+                    if (FindAnyObjectByType<AudioListener>() == null)
                     {
                         camObj.AddComponent<AudioListener>();
                     }
@@ -219,7 +219,7 @@ namespace CS17.Core
                 {
                     shopItems[i] = new WeaponShopItem
                     {
-                        weaponData = allWeapons[i],
+                        weaponPrefab = allWeapons[i].weaponPrefab,
                         price = allWeapons[i].price
                     };
                 }
@@ -262,13 +262,18 @@ namespace CS17.Core
 
             // Spawn bots with delay
             bots = new GameObject[numberOfBots];
-            for (int i = 0; i < numberOfBots; i++)
-            {
-                int spawnIndex = i % botSpawnPoints.Length;
-                Invoke(nameof(SpawnSingleBot) + i, botSpawnDelay * i);
-            }
+            StartCoroutine(SpawnBotsWithDelay());
 
             Debug.Log($"[CompleteGameSetup] ✓ Spawning {numberOfBots} bots...");
+        }
+
+        private System.Collections.IEnumerator SpawnBotsWithDelay()
+        {
+            for (int i = 0; i < numberOfBots; i++)
+            {
+                yield return new WaitForSeconds(botSpawnDelay);
+                bots[i] = CreateBot(i);
+            }
         }
 
         private GameObject CreateBot(int index)
@@ -298,7 +303,7 @@ namespace CS17.Core
 
                 // Add AI components
                 bot.AddComponent<CharacterController>();
-                var botController = bot.AddComponent<BotController>();
+                var botComponent = bot.AddComponent<Bot>();
                 var botAI = bot.AddComponent<BotAI>();
                 bot.AddComponent<PlayerHealth>();
                 bot.AddComponent<WeaponManager>();
@@ -322,13 +327,6 @@ namespace CS17.Core
 
             return bot;
         }
-
-        // Dynamic spawn methods for Invoke
-        private void SpawnSingleBot0() { bots[0] = CreateBot(0); }
-        private void SpawnSingleBot1() { bots[1] = CreateBot(1); }
-        private void SpawnSingleBot2() { bots[2] = CreateBot(2); }
-        private void SpawnSingleBot3() { bots[3] = CreateBot(3); }
-        private void SpawnSingleBot4() { bots[4] = CreateBot(4); }
 
         private void SetupBuyZones()
         {

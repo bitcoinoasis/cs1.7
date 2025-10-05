@@ -60,4 +60,14 @@ public class RaceData : ScriptableObject
     
     // Helper property for UI access
     public AbilityData[] abilities => new AbilityData[] { ultimateAbility, ability2, ability3 };
+    
+    // Helper method to count non-null abilities
+    public int GetAbilityCount()
+    {
+        int count = 0;
+        if (ultimateAbility != null) count++;
+        if (ability2 != null) count++;
+        if (ability3 != null) count++;
+        return count;
+    }
 }

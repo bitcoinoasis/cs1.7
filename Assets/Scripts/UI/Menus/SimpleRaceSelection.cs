@@ -100,7 +100,7 @@ public class SimpleRaceSelection : MonoBehaviour
                 
                 // Abilities
                 GUILayout.Label($"Abilities: {race.GetAbilityCount()}", new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Italic });
-                if (race.ability1 != null) GUILayout.Label($"  Q: {race.ability1.abilityName}", new GUIStyle(GUI.skin.label) { fontSize = 10 });
+                if (race.ultimateAbility != null) GUILayout.Label($"  Q: {race.ultimateAbility.abilityName}", new GUIStyle(GUI.skin.label) { fontSize = 10 });
                 if (race.ability2 != null) GUILayout.Label($"  E: {race.ability2.abilityName}", new GUIStyle(GUI.skin.label) { fontSize = 10 });
                 if (race.ability3 != null) GUILayout.Label($"  R: {race.ability3.abilityName}", new GUIStyle(GUI.skin.label) { fontSize = 10 });
                 
