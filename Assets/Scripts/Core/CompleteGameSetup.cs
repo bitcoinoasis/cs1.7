@@ -307,7 +307,18 @@ namespace CS17.Core
                 // Create basic bot
                 bot = GameObject.CreatePrimitive(PrimitiveType.Capsule);
                 bot.name = $"Bot_{index}";
-                bot.tag = "Bot";
+                
+                // Try to set Bot tag, fallback to Untagged if not defined
+                try
+                {
+                    bot.tag = "Bot";
+                }
+                catch (UnityException)
+                {
+                    Debug.LogWarning($"[CompleteGameSetup] 'Bot' tag not defined yet. Please stop and restart Play mode after Unity refreshes tags.");
+                    bot.tag = "Untagged";
+                }
+                
                 bot.layer = LayerMask.NameToLayer("Default");
 
                 // Set bot color to red
