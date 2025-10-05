@@ -300,13 +300,4 @@ namespace CS17.Editor
             }
         }
     }
-
-    public enum WeaponType
-    {
-        Pistol,
-        SMG,
-        Rifle,
-        Sniper,
-        Heavy
-    }
 }
